@@ -1,0 +1,58 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "http://git.ml.com:8081/nexus/content/groups/Arquitectura" }
+        maven { url "http://git.ml.com:8081/nexus/content/repositories/releases" }
+        maven { url "http://repo.maven.apache.org/maven2" }
+    }
+
+    dependencies {
+        classpath group: 'com.mercadolibre', name: 'i18n', version: '1.13'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'distribution'
+    id 'com.github.ben-manes.versions' version '0.13.0'
+    id "it.gianluz.capsule" version "1.0.3"
+    id 'io.franzbecker.gradle-lombok' version '2.0'
+}
+
+sourceCompatibility = 1.8
+
+lombok {
+    version = '1.18.4'
+    sha256 = ""
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url "http://git.ml.com:8081/nexus/content/repositories/MLGrailsPlugins" }
+    maven { url "http://git.ml.com:8081/nexus/content/groups/Arquitectura" }
+    maven { url "http://git.ml.com/nexus/content/repositories/releases" }
+}
+
+dependencies {
+
+    compile("com.google.inject:guice:4.1.0") {
+        force = true
+    }
+
+    compile('org.projectlombok:lombok:1.18.10')
+    annotationProcessor 'org.projectlombok:lombok:1.18.10'
+
+    compile('com.mercadolibre:supply-business-core:4.9.18')
+    compile('com.mercadolibre:java-spark-utils:2.4.0')
+    compile('com.mercadolibre.kisc:bricks:0.0.4')
+    compile('com.mercadolibre:java-client-utils:1.15.2')
+
+    testCompile 'org.mockito:mockito-junit-jupiter:2.17.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.2'
+
+    testCompile 'org.mockito:mockito-core:2.24.5'
+    testCompile group: 'com.mercadolibre.restclient', name: 'restclient-core', version: '0.2.7', classifier: 'tests'
+}
